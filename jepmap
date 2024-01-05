@@ -4,6 +4,9 @@ HIGH=55
 MID=15
 LOW=5
 
+# if you don't install setPL set the ABSOLUTE path here
+SETPL="setPL"
+
 HELP="
 jepmap is a simple alias-script to help mananig PL1 and PL2 value
 
@@ -34,16 +37,16 @@ then
   turbostat --Summary --interval 1 --show Avg_MHz,Busy%,Bzy_MHz,IRQ,PkgTmp,PkgWatt,GFXWat
 elif [ "$1" = "set" ]
 then
-  setPL "$2" "$2"
+  "$SETPL" "$2" "$2"
 elif [ "$1" = "hi" ]
 then
-  setPL "$HIGH" "$HIGH"
+  "$SETPL" "$HIGH" "$HIGH"
 elif [ "$1" = "mid" ]
 then
-  setPL "$MID" "$MID"
+  "$SETPL" "$MID" "$MID"
 elif [ "$1" = "lo" ]
 then
-  setPL "$LOW" "$LOW"
+  "$SETPL" "$LOW" "$LOW"
 else
 echo -e "$HELP"
 fi
