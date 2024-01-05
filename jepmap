@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+HIGH=55
+MID=15
+LOW=5
+
+HELP="
+jepmap is a simple alias-script to help mananig PL1 and PL2 value
+
+Usage:
+sudo is mandatory!!!
+
+jepmap        Get PL1 and PL2 values
+jepmap get    Get powerstat summary and monitor some cpu info (mainly power usage and temp)
+jepset N      Set PL1 and PL2 to N using setPL by horshack-dpreview
+jepset hi     Set PLs to $HIGH
+jepset mid    Set PLs to $MID
+jepset lo     Set PLs to $LOW
+
+any other argument will print this prompt
+"
+
+if [ "$(id -u)" != "0" ]; then
+  echo "$HELP"
+  exit 1
+fi
+
+
+if [ -z "$1" ]
+then
+  turbostat sleep 0 2>&1 | grep MSR_PKG_POWER_LIMIT -A 2
+elif [ "$1" = "get" ]
+then
+  turbostat --Summary --interval 1 --show Avg_MHz,Busy%,Bzy_MHz,IRQ,PkgTmp,PkgWatt,GFXWat
+elif [ "$1" = "set" ]
+then
+  setPL "$2" "$2"
+elif [ "$1" = "hi" ]
+then
+  setPL "$HIGH" "$HIGH"
+elif [ "$1" = "mid" ]
+then
+  setPL "$MID" "$MID"
+elif [ "$1" = "lo" ]
+then
+  setPL "$LOW" "$LOW"
+else
+echo -e "$HELP"
+fi
