@@ -1,6 +1,6 @@
 # Jepmap
 
-jepmap is a simple bash script to monitor the power settings of your cpu
+jepmap is a simple bash script to set and monitor the power settings of your cpu\
 *written instead of studying by jep*
 
 ### Why?
